@@ -1,9 +1,13 @@
-function App() {
+import { Header } from "./components/Header";
+import { SummaryTable } from "./components/SummaryTable";
+
+export function App() {
   return (
-    <div className="bg-zinc-900 h-screen w-screen">
-      <h1 className="text-white">Hello world</h1>
+    <div className="bg-background text-white h-screen w-screen flex justify-center items-center">
+      <div className="w-full max-w-5xl px-4 flex flex-col gap-16">
+        <Header />
+        <SummaryTable />
+      </div>
     </div>
   );
 }
-
-export default App
