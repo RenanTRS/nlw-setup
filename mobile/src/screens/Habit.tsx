@@ -1,4 +1,13 @@
-import { View } from "react-native";
+import { useRoute } from "@react-navigation/native";
+import dayjs from "dayjs";
+import { ScrollView, Text, View } from "react-native";
+import { BackButton } from "../components/BackButton";
+import { CheckBox } from "../components/CheckBox";
+import { ProgressBar } from "../components/ProgressBar";
+
+interface Params {
+  date: string;
+}
 
 export function Habit() {
   return (
