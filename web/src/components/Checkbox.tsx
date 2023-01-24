@@ -5,11 +5,12 @@ import { Check } from "phosphor-react";
 interface Props {
   title: string;
   form?: boolean;
+  change?: () => void;
 }
 
-export function Checkbox({title, form = false}: Props) {
+export function Checkbox({title, change, form = false}: Props) {
   return (
-    <CheckboxUi.Root className="flex items-center gap-3 group">
+    <CheckboxUi.Root className="flex items-center gap-3 group" onCheckedChange={change}>
       <div 
         className="h-8 w-8 rounded-lg flex items-center justify-center bg-zinc-900 border-2 border-zinc-800 group-data-[state=checked]:bg-green-500 group-data-[state=checked]:border-green-500"
       >
