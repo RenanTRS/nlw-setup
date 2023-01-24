@@ -3,6 +3,7 @@ import { Checkbox } from "./Checkbox";
 
 export function NewHabitForm () {
   const availableWeekDays = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'];
+  const [title, setTitle] = useState<string>("");
 
   return (
     <form className="w-full flex flex-col mt-6">
@@ -13,8 +14,10 @@ export function NewHabitForm () {
       <input 
         type="text" 
         id="title"
+        value={title}
         placeholder="ex.: Exercícios, dormir bem, etc ..."
         className="p-4 rounded-lg mt-3 bg-zinc-800 text-white placeholder:text-zinc-400"
+        onChange={(event) => setTitle(event?.target.value)}
         autoFocus
       />
 
