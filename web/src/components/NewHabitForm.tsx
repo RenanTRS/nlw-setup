@@ -4,9 +4,12 @@ import { Checkbox } from "./Checkbox";
 export function NewHabitForm () {
   const availableWeekDays = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'];
   const [title, setTitle] = useState<string>("");
+  const createNewHabit = (event: FormEvent) => {
+    event.preventDefault();
+  }
 
   return (
-    <form className="w-full flex flex-col mt-6">
+    <form onSubmit={createNewHabit} className="w-full flex flex-col mt-6">
       <label htmlFor="title" className="font-semibold leading-tight">
         Qual o seu comprometimento?
       </label>
