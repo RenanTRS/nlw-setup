@@ -29,8 +29,13 @@ export function NewHabitForm () {
       </label>
 
       <div className="flex flex-col gap-2 mt-3">
-        {availableWeekDays.map(weekDay => (
-          <Checkbox key={weekDay} title={weekDay} form />
+        {availableWeekDays.map((weekDay, index) => (
+          <Checkbox 
+            key={weekDay} 
+            title={weekDay} 
+            form 
+            change={() => handleToggleWeekDay(index)}
+          />
         ))
         }
       </div>
