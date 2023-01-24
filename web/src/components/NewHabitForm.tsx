@@ -1,11 +1,22 @@
+import { FormEvent, useState } from "react";
 import { Check } from "phosphor-react";
 import { Checkbox } from "./Checkbox";
 
 export function NewHabitForm () {
   const availableWeekDays = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'];
   const [title, setTitle] = useState<string>("");
+  const [weekDays, setWeekDays] = useState<number[]>([]);
+
   const createNewHabit = (event: FormEvent) => {
     event.preventDefault();
+  }
+
+  const handleToggleWeekDay = (weekDayIndex: number) => {
+    if(weekDays.includes(weekDayIndex)){
+      setWeekDays(prevState => prevState.filter( weekDay => weekDay !== weekDayIndex));
+    } else {
+      setWeekDays(prevState => [...prevState, weekDayIndex]);
+    }
   }
 
   return (
