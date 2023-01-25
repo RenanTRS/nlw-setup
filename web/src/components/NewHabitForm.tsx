@@ -46,6 +46,7 @@ export function NewHabitForm () {
             title={weekDay} 
             form 
             change={() => handleToggleWeekDay(index)}
+            check={weekDays.includes(index)}
           />
         ))
         }
