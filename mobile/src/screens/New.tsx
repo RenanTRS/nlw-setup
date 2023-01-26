@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { ScrollView, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Alert, ScrollView, Text, TextInput, TouchableOpacity, View } from "react-native";
 import colors from "tailwindcss/colors";
 import { BackButton } from "../components/BackButton";
 import { CheckBox } from "../components/CheckBox";
 import {Feather} from "@expo/vector-icons"
+import { api } from "../lib/axios";
 
 export function New() {
   const [weekDays, setWeekDays] = useState<number[]>([]);
@@ -18,6 +19,23 @@ export function New() {
   }
 
   const avaliableWeekDays = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'];
+
+  const handleCreateANewHabit = async () => {
+    try {
+      if(!title.trim() || weekDays.length === 0){
+        Alert.alert("Erro", "Informe o nome e a sua recorrência.");
+      }
+      await api.post("/habits", {title, weekDays});
+
+      setTitle('');
+      setWeekDays([]);
+
+      Alert.alert("Novo hábito", "Novo hábito criado com sucesso!")
+    } catch (error) {
+      console.log(error);
+      Alert.alert("Ops!", "Não foi possível criar o novo hábito!");
+    }
+  }
 
   return (
     <View className="flex-1 bg-background px-8 pt-16">
