@@ -29,7 +29,7 @@ export function Habit() {
   const [dayInfo, setDayInfo] = useState<DayInfoProps | null>(null);
   const [completedHabits, setCompletedHabits] = useState<string[]>([]);
 
-  const habitProgress = dayInfo?.possibleHabits.length? generateProgressPercentage(dayInfo.possibleHabits.length, completedHabits.length) : 0
+  const habitProgress = dayInfo?.possibleHabits.length? generateProgressPercentage(completedHabits.length, dayInfo.possibleHabits.length) : 0
 
   const route = useRoute();
   const {date} = route.params as Params;
