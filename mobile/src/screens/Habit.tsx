@@ -59,6 +59,7 @@ export function Habit() {
 
   const handleToggleHabit = async (habitId: string) => {
     try {
+      await api.patch(`/habits/${habitId}/toggle`);
       if(completedHabits.includes(habitId)) {
         setCompletedHabits(prevState => prevState.filter(id => id !== habitId));
       } else {
