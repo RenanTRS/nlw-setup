@@ -24,6 +24,7 @@ interface DayInfoProps {
 export function Habit() {
   const [loading, setLoading] = useState(true);
   const [dayInfo, setDayInfo] = useState<DayInfoProps | null>(null);
+  const [completedHabits, setCompletedHabits] = useState<string[]>([]);
 
   const route = useRoute();
   const {date} = route.params as Params;
@@ -40,12 +41,21 @@ export function Habit() {
         date: date
       }});
       setDayInfo(response.data);
-      
+      setCompletedHabits(response.data.completedHabits);
+
     } catch (error) {
       console.log(error);
       Alert.alert('Ops!', 'Não foi possível carregar as informações dos hábitos.');
     } finally {
       setLoading(false);
+    }
+  }
+
+  const handleToggleHabit = async (habitId: string) => {
+    if(completedHabits.includes(habitId)) {
+      setCompletedHabits(prevState => prevState.filter(id => id !== habitId));
+    } else {
+      setCompletedHabits(prevState => [...prevState, habitId]);
     }
   }
 
@@ -76,14 +86,14 @@ export function Habit() {
         <ProgressBar progress={55}/>
 
         <View className="mt-6">
-          <CheckBox
-            title="Beber 2L de água"
-            checked={false}
-          />
-          <CheckBox 
-            title="Caminhar"
-            checked={true}
-          />
+          {dayInfo?.possibleHabits.map(habit => (
+            <CheckBox
+              key={habit.id}
+              title={habit.title}
+              checked={completedHabits.includes(habit.id)}
+              onPress={() => handleToggleHabit(habit.id)}
+            />
+          ))}
         </View>
       </ScrollView>
 
