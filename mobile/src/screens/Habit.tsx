@@ -7,6 +7,7 @@ import { CheckBox } from "../components/CheckBox";
 import { Loading } from "../components/Loading";
 import { ProgressBar } from "../components/ProgressBar";
 import { api } from "../lib/axios";
+import { generateProgressPercentage } from "../utils/generate-progress-percentage";
 
 interface Params {
   date: string;
@@ -25,6 +26,8 @@ export function Habit() {
   const [loading, setLoading] = useState(true);
   const [dayInfo, setDayInfo] = useState<DayInfoProps | null>(null);
   const [completedHabits, setCompletedHabits] = useState<string[]>([]);
+
+  const habitProgress = dayInfo?.possibleHabits.length? generateProgressPercentage(dayInfo.possibleHabits.length, completedHabits.length) : 0
 
   const route = useRoute();
   const {date} = route.params as Params;
@@ -83,7 +86,7 @@ export function Habit() {
           {dayAndMonth}
         </Text>
 
-        <ProgressBar progress={55}/>
+        <ProgressBar progress={habitProgress}/>
 
         <View className="mt-6">
           {dayInfo?.possibleHabits.map(habit => (
@@ -96,8 +99,6 @@ export function Habit() {
           ))}
         </View>
       </ScrollView>
-
-
     </View>
   );
 }
