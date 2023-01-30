@@ -23,7 +23,7 @@ export function New() {
   const handleCreateANewHabit = async () => {
     try {
       if(!title.trim() || weekDays.length === 0){
-        Alert.alert("Erro", "Informe o nome e a sua recorrência.");
+        return Alert.alert("Erro", "Informe o nome e a sua recorrência.");
       }
       await api.post("/habits", {title, weekDays});
 
