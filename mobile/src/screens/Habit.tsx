@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Alert, ScrollView, Text, View } from "react-native";
 import { BackButton } from "../components/BackButton";
 import { CheckBox } from "../components/CheckBox";
+import { HabitsEmpty } from "../components/HabitsEmpty";
 import { Loading } from "../components/Loading";
 import { ProgressBar } from "../components/ProgressBar";
 import { api } from "../lib/axios";
@@ -89,14 +90,15 @@ export function Habit() {
         <ProgressBar progress={habitProgress}/>
 
         <View className="mt-6">
-          {dayInfo?.possibleHabits.map(habit => (
+          {dayInfo?.possibleHabits ? dayInfo?.possibleHabits.map(habit => (
             <CheckBox
               key={habit.id}
               title={habit.title}
               checked={completedHabits.includes(habit.id)}
               onPress={() => handleToggleHabit(habit.id)}
             />
-          ))}
+          )) : <HabitsEmpty />
+          }
         </View>
       </ScrollView>
     </View>
