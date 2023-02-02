@@ -7,13 +7,19 @@ interface Props {
   form?: boolean;
   change?: () => void;
   check?: boolean;
+  disable?: boolean;
 }
 
-export function Checkbox({check, title, change, form = false}: Props) {
+export function Checkbox({disable = false, check, title, change, form = false}: Props) {
   return (
-    <CheckboxUi.Root className="flex items-center gap-3 group" onCheckedChange={change} checked={check}>
+    <CheckboxUi.Root 
+      className="flex items-center gap-3 group disabled:cursor-not-allowed focus:outline-none"
+      onCheckedChange={change} 
+      checked={check} 
+      disabled={disable}
+    >
       <div 
-        className="h-8 w-8 rounded-lg flex items-center justify-center bg-zinc-900 border-2 border-zinc-800 group-data-[state=checked]:bg-green-500 group-data-[state=checked]:border-green-500"
+        className="h-8 w-8 rounded-lg flex items-center justify-center bg-zinc-900 border-2 border-zinc-800 group-data-[state=checked]:bg-green-500 group-data-[state=checked]:border-green-500 transition-colors group-focus:ring-2 group-focus:ring-violet-600 group-focus:ring-offset-2 group-focus:ring-offset-background"
       >
         <CheckboxUi.Indicator>
           <Check size={20} className="text-white" />
