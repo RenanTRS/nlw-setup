@@ -8,6 +8,15 @@ import { Loading } from "../components/Loading";
 
 import { generateRangeDatesFromYearStart } from "../utils/generate-range-between-dates";
 import dayjs from "dayjs";
+import * as Notifications from "expo-notifications";
+
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: false,
+    shouldSetBadge: false
+  })
+});
 
 const weekDays = ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'];
 const datesFromYearStart = generateRangeDatesFromYearStart();
@@ -21,12 +30,26 @@ type Summary = {
   amount: number;
 }[]
 
+const scheduleNotification = async () => {
+  const trigger = new Date(Date.now());
+  trigger.setMinutes(trigger.getMinutes() + 1);
+
+  await Notifications.scheduleNotificationAsync({
+    content: {
+      title: 'Olá',
+      body: 'Você praticou seus hábitos hoje?'
+    },
+    trigger
+  })
+}
+
 export function Home () {
   const [loading, setLoading] = useState(true);
   const [summary, setSummary] = useState<Summary>([]);
 
   const {navigate} = useNavigation();
 
+  scheduleNotification();
   const fetchData = async () => {
     try {
       setLoading(true);
